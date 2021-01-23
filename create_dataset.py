@@ -23,7 +23,7 @@ def main(args):
     if sum([args.frac_train, args.frac_validate, args.frac_holdout]) - 1 > 0.00001:
         raise ValueError("'frac_train', 'frac_validate' and 'frac_holdout' must sum to 1.")
 
-    imgs = [p for p in list(Path("holdout").rglob("**/*.png"))]
+    imgs = [p for p in list(Path("holdout/images").rglob("**/*.png"))]
     shuffle(imgs)
     validate_imgs_start_idx = int(len(imgs) * args.frac_train)
     holdout_imgs_idx = int(validate_imgs_start_idx + (len(imgs) * args.frac_validate))

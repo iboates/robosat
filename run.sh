@@ -45,4 +45,4 @@ buildings_geojson=$(find . -name 'buildings-*.geojson')
 ./rs rasterize --zoom 17 --dataset config/model-unet-building.toml $buildings_geojson cover.csv holdout/labels
 python create_dataset.py $zoom $frac_train $frac_validate $frac_holdout
 ./rs weights --dataset config/model-unet-building.toml
-./rs train --dataset config/model-unet.toml --model config/model-unet-building.toml
+./rs train --dataset config/model-unet-building.toml --model config/model-unet-building.toml
