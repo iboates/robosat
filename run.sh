@@ -21,8 +21,6 @@ conda create -n robosat python=3.8
 conda activate robosat
 
 # Clone the repo and install the deps, plus the ones that are missing for some reason
-git clone https://github.com/iboates/robosat.git
-cd robosat
 pip install -r requirements.in
 pip install torch
 pip install torchvision
