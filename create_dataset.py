@@ -31,7 +31,7 @@ def main(args):
     for img in imgs[:validate_imgs_start_idx]:
         copy_image_and_label(img, "training")
     for img in imgs[validate_imgs_start_idx:holdout_imgs_idx]:
-        copy_image_and_label(img, "validate")
+        copy_image_and_label(img, "validation")
 
 
 if __name__ == "__main__":
