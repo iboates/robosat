@@ -13,7 +13,7 @@ def copy_image_and_label(img, group):
     copyfile(img, image_dst)
 
     label = Path(*[p.replace("images", "labels") for p in img.parts])
-    label_dst = Path("dataset", group, *img.parts[2:])
+    label_dst = Path("dataset", group, "labels", *img.parts[2:])
 
     copyfile(label, label_dst)
 
