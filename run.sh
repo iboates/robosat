@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Parse arguments
 pbf_download_link=$1
