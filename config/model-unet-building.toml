@@ -20,6 +20,7 @@
 
   classes = ["notbuilding", "building"]
   colors = ["dark", "white"]
+  dataset = "dataset"
 
 
 # Model specific optimization parameters.
