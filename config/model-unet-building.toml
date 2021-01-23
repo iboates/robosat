@@ -20,7 +20,7 @@
 
   classes = ["notbuilding", "building"]
   colors = ["dark", "white"]
-  dataset = "dataset"
+  dataset="/home/ubuntu/robosat/dataset"
 
 
 # Model specific optimization parameters.
