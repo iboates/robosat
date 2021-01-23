@@ -46,3 +46,8 @@ buildings_geojson=$(find . -name 'buildings-*.geojson')
 python create_dataset.py $zoom $frac_train $frac_validate $frac_holdout
 ./rs weights --dataset config/model-unet-building.toml
 ./rs train --dataset config/model-unet-building.toml --model config/model-unet-building.toml
+
+
+./rs predict --tile_size 512 --model config/model-unet-building.toml --dataset config/model-unet-building.toml --checkpoint /tmp/pth/checkpoint-00100-of-00100.pth holdout/images probs
+./rs masks masks probs  # TODO: missing --weights - what does it do? the output of ./rs weights doesn't work. It seems to want a floating point. Is it a threhsold?
+./rs compare compare holdout/images holdout/labels masks

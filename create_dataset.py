@@ -1,7 +1,7 @@
 import os
 from random import shuffle
 from pathlib import Path
-from shutil import copyfile
+from shutil import move
 import argparse
 
 
@@ -10,12 +10,12 @@ def copy_image_and_label(img, group):
     os.makedirs(Path("dataset", group, "labels", *img.parts[2:-1]), exist_ok=True)
 
     image_dst = Path("dataset", group, *img.parts[1:])
-    copyfile(img, image_dst)
+    move(img, image_dst)
 
     label = Path(*[p.replace("images", "labels") for p in img.parts])
     label_dst = Path("dataset", group, "labels", *img.parts[2:])
 
-    copyfile(label, label_dst)
+    move(label, label_dst)
 
 
 def main(args):
