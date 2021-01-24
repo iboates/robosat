@@ -27,12 +27,12 @@ pip install torch
 pip install torchvision
 
 # Make folder structure for dataset
-mkdir dataset
-mkdir dataset/training
-mkdir dataset/validation
-mkdir holdout
-mkdir holdout/images
-mkdir holdout/labels
+mkdir -p dataset
+mkdir -p dataset/training
+mkdir -p dataset/validation
+mkdir -p holdout
+mkdir -p holdout/images
+mkdir -p holdout/labels
 
 # Download the OSM data
 wget -O osm_data.pbf $pbf_download_link
