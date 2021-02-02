@@ -35,10 +35,10 @@ mkdir -p holdout/images
 mkdir -p holdout/labels
 
 # Download the OSM data
-wget -O osm_data.pbf $pbf_download_link
+#wget -O osm_data.pbf $pbf_download_link
 
 # Run RoboSat
-./rs extract --type building osm_data.pbf buildings.geojson
+#./rs extract --type building osm_data.pbf buildings.geojson
 
 
 
