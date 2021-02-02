@@ -27,7 +27,7 @@
 [opt]
 
   # Total number of epochs to train for.
-  epochs     = 10
+  epochs     = 1000
 
   # Learning rate for the optimizer.
   lr         = 0.0001

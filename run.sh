@@ -39,21 +39,25 @@ wget -O osm_data.pbf $pbf_download_link
 
 # Run RoboSat
 ./rs extract --type building osm_data.pbf buildings.geojson
-buildings_geojson=$(find . -name 'buildings-*.geojson')
 
 
-for buildings_geojson in ./buildings-*.geojson; do
-    ./rs cover --zoom 17 $buildings_geojson cover.csv
+
+
+for buildings_geojson in ./buildings-postgis-*.geojson; do
+    ./rs cover --zoom 18 $buildings_geojson buildings_cover.csv
 done
-./rs download --ext png https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.webp?access_token=$mapbox_access_token cover.csv holdout/images
-for buildings_geojson in ./buildings-*.geojson; do
-    ./rs rasterize --zoom 17 --dataset config/model-unet-building.toml $buildings_geojson cover.csv holdout/labels
+
+./rs download --ext png https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.webp?access_token=$mapbox_access_token buildings_cover.csv holdout/images
+
+for buildings_geojson in ./buildings-postgis-*.geojson; do
+    ./rs rasterize --zoom $zoom --dataset config/model-unet-building.toml $buildings_geojson cover.csv holdout/labels
 done
+
 python create_dataset.py $zoom $frac_train $frac_validate $frac_holdout
 ./rs weights --dataset config/model-unet-building.toml
 ./rs train --dataset config/model-unet-building.toml --model config/model-unet-building.toml
 
 
-./rs predict --tile_size 512 --model config/model-unet-building.toml --dataset config/model-unet-building.toml --checkpoint /tmp/pth/checkpoint-00100-of-00100.pth holdout/images probs
-./rs masks masks probs  # TODO: missing --weights - what does it do? the output of ./rs weights doesn't work. It seems to want a floating point. Is it a threhsold?
+./rs predict --tile_size 512 --model config/model-unet-building.toml --dataset config/model-unet-building.toml holdout/images probs
+./rs masks masks probs
 ./rs compare compare holdout/images holdout/labels masks
