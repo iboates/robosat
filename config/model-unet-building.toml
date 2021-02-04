@@ -9,7 +9,7 @@
   cuda       = true
 
   # Batch size for training.
-  batch_size = 2
+  batch_size = 4
 
   # Image side size in pixels.
   image_size = 512
@@ -27,7 +27,7 @@
 [opt]
 
   # Total number of epochs to train for.
-  epochs     = 1000
+  epochs     = 100
 
   # Learning rate for the optimizer.
   lr         = 0.0001
