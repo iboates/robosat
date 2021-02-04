@@ -44,13 +44,13 @@ mkdir -p holdout/labels
 
 
 for buildings_geojson in ./buildings-postgis-*.geojson; do
-    ./rs cover --zoom 18 $buildings_geojson buildings_cover.csv
+    ./rs cover --zoom $zoom $buildings_geojson buildings_cover.csv
 done
 
 ./rs download --ext png https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.webp?access_token=$mapbox_access_token buildings_cover.csv holdout/images
 
 for buildings_geojson in ./buildings-postgis-*.geojson; do
-    ./rs rasterize --zoom $zoom --dataset config/model-unet-building.toml $buildings_geojson cover.csv holdout/labels
+    ./rs rasterize --zoom $zoom --dataset config/model-unet-building.toml $buildings_geojson buildings_cover.csv holdout/labels
 done
 
 python create_dataset.py $zoom $frac_train $frac_validate $frac_holdout
