@@ -2,12 +2,12 @@
 set -e
 
 # Parse arguments
-pbf_download_link=$1
-zoom=$2
-frac_train=$3
-frac_validate=$4
-frac_holdout=$5
-mapbox_access_token=$6
+#pbf_download_link=$1
+zoom=$1
+frac_train=$2
+frac_validate=$3
+frac_holdout=$4
+mapbox_access_token=$5
 
 # Update environment
 sudo apt update
