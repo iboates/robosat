@@ -19,7 +19,7 @@
 
 
   classes = ["notbuilding", "building"]
-  colors = ["dark", "white"]
+  colors = ["green", "red"]
   dataset="/home/ubuntu/robosat/dataset"
 
 

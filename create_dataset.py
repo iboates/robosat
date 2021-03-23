@@ -3,6 +3,8 @@ from random import shuffle
 from pathlib import Path
 from shutil import move
 import argparse
+import getpass
+
 
 
 def copy_image_and_label(img, group):
