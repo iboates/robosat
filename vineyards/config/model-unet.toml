@@ -35,4 +35,8 @@
   # Loss function name (e.g 'Lovasz', 'mIoU' or 'CrossEntropy')
   loss = 'Lovasz'
 
+# Dataset specific class weights computes on the training data.
+# Needed by 'mIoU' and 'CrossEntropy' losses to deal with unbalanced classes.
+# Note: use `./rs weights -h` to compute these for new datasets.
+[weights]
   values = []
