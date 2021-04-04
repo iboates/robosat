@@ -7,24 +7,28 @@ import getpass
 
 
 def copy_image_and_label(img, group):
-    os.makedirs(Path("dataset", group, "images", *img.parts[2:-1]), exist_ok=True)
-    os.makedirs(Path("dataset", group, "labels", *img.parts[2:-1]), exist_ok=True)
+    os.makedirs(Path("dataset", group, "images", *img.parts[3:-1]), exist_ok=True)
+    os.makedirs(Path("dataset", group, "labels", *img.parts[3:-1]), exist_ok=True)
 
-    image_dst = Path("dataset", group, *img.parts[1:])
+    image_dst = Path("dataset", group, *img.parts[2:])
     move(img, image_dst)
 
     label = Path(*[p.replace("images", "labels") for p in img.parts])
-    label_dst = Path("dataset", group, "labels", *img.parts[2:])
+    label_dst = Path("dataset", group, "labels", *img.parts[3:])
 
     move(label, label_dst)
 
 
 def main(args):
 
+    print("================")
+    print(os.getcwd())
+    print("================")
+
     if sum([args.frac_train, args.frac_validate, args.frac_holdout]) - 1 > 0.00001:
         raise ValueError("'frac_train', 'frac_validate' and 'frac_holdout' must sum to 1.")
 
-    imgs = [p for p in list(Path("holdout/images").rglob("**/*.png"))]
+    imgs = [p for p in list(Path("dataset/holdout/images").rglob("**/*.png"))]
     shuffle(imgs)
     validate_imgs_start_idx = int(len(imgs) * args.frac_train)
     holdout_imgs_idx = int(validate_imgs_start_idx + (len(imgs) * args.frac_validate))

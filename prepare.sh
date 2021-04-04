@@ -21,25 +21,25 @@ mkdir -p dataset/training/labels
 mkdir -p dataset/validation
 mkdir -p dataset/validation/images
 mkdir -p dataset/validation/labels
-mkdir -p holdout
-mkdir -p holdout/images
-mkdir -p holdout/labels
+mkdir -p myanmar/holdout
+mkdir -p myanmar/holdout/images
+mkdir -p myanmar/holdout/labels
 
-#echo "Writing cover CSV..."
-#for buildings_geojson in ./buildings-postgis-*.geojson; do
-#    ./rs cover --zoom $zoom $buildings_geojson buildings_cover.csv
-#done
+echo "Writing cover CSV..."
+for buildings_geojson in ./myanmar/buildings-postgis-*.geojson; do
+    ./rs cover --zoom $zoom $buildings_geojson myanmar/buildings_cover.csv
+done
+
+echo "Downloading tiles..."
+./rs download --ext png https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.png?access_token=$mapbox_access_token myanmar/buildings_cover.csv myanmar/holdout/images
+
+echo "Rasterizing..."
+for buildings_geojson in ./myanmar/buildings-postgis-*.geojson; do
+    ./rs rasterize --zoom $zoom --dataset config/model-unet-building.toml $buildings_geojson myanmar/buildings_cover.csv myanmar/holdout/labels
+done
+
+#echo "Splitting data into train/validate/holdout..."
+#python create_dataset.py $zoom $frac_train $frac_validate $frac_holdout
 #
-#echo "Downloading tiles..."
-#./rs download --ext png https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.png?access_token=$mapbox_access_token buildings_cover.csv holdout/images
-
-#echo "Rasterizing..."
-#for buildings_geojson in ./buildings-postgis-*.geojson; do
-#    ./rs rasterize --zoom $zoom --dataset config/model-unet-building.toml $buildings_geojson buildings_cover.csv holdout/labels
-#done
-
-echo "Splitting data into train/validate/holdout..."
-python create_dataset.py $zoom $frac_train $frac_validate $frac_holdout
-
-echo "Creating weights..."
-./rs weights --dataset config/model-unet-building.toml
+#echo "Creating weights..."
+#./rs weights --dataset config/model-unet-building.toml
