@@ -6,4 +6,3 @@ FROM
     training
 WHERE
     class = 'vineyard'
-limit 5

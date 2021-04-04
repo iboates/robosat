@@ -4,4 +4,3 @@ SELECT
     geom
 FROM
     training
-   limit 5
