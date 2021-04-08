@@ -71,7 +71,8 @@ afterMap.on('load', function() {
     'type': 'raster',
     'source': {
       'type': 'raster',
-      'tiles': [ 'http://127.0.0.1:5000/{z}/{x}/{y}.png' ],
+      // replace this when starting because the IP will be dynamically assigned by the GPU cloud provider
+      'tiles': [ 'http://<<< GPU SERVER IP >>>1:5000/{z}/{x}/{y}.png' ],
       'tileSize': {{ size }}
     }
   });

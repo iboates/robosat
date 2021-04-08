@@ -21,6 +21,8 @@ from robosat.config import load_config
 from robosat.colors import make_palette
 from robosat.transforms import ConvertImageMode, ImageToTensor
 
+import fileinput
+
 """
 Simple tile server running a segmentation model on the fly.
 
@@ -57,6 +59,7 @@ def tile(z, x, y):
     tile = mercantile.Tile(x, y, z)
 
     url = tiles.format(x=tile.x, y=tile.y, z=tile.z)
+    url = f"{url}?access_token={token}"  # For some reason the token is not getting added to the request in the main repo implementation
     res = fetch_image(session, url)
 
     if not res:
@@ -121,6 +124,14 @@ def main(args):
 
     global predictor
     predictor = Predictor(args.checkpoint, model, dataset)
+
+    # Dirty little hack to make the live predictor use the correct IP
+    # But this means you have to run ./rs serve with --host = the actual IP of the instance
+    with open("robosat/tools/templates/index.html", "r") as f:
+        data = f.read()
+    data = data.replace("<<< GPU SERVER IP >>>", args.host)
+    with open("robosat/tools/templates/index.html", "w") as f:
+        f.write(data)
 
     app.run(host=args.host, port=args.port, threaded=False)
 
