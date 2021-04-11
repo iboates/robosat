@@ -17,8 +17,8 @@ class ParkingHandler:
         self.features = []
 
     def apply(self, tile, mask):
-        if tile.z != 18:
-            raise NotImplementedError("Parking lot post-processing thresholds are tuned for z18")
+        # if tile.z != 18:
+        #     raise NotImplementedError("Parking lot post-processing thresholds are tuned for z18")
 
         # The post-processing pipeline removes noise and fills in smaller holes. We then
         # extract contours, simplify them and transform tile pixels into coordinates.

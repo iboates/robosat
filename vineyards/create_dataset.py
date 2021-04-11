@@ -37,9 +37,9 @@ def main(args):
     validate_imgs_start_idx = int(len(imgs) * args.frac_train)
     holdout_imgs_idx = int(validate_imgs_start_idx + (len(imgs) * args.frac_validate))
 
-    for img in tqdm(imgs[:validate_imgs_start_idx], description="Training Set:"):
+    for img in tqdm(imgs[:validate_imgs_start_idx], desc="Training Set:"):
         copy_image_and_label(img, "training")
-    for img in tqdm(imgs[validate_imgs_start_idx:holdout_imgs_idx], description="Validation Set:"):
+    for img in tqdm(imgs[validate_imgs_start_idx:holdout_imgs_idx], desc="Validation Set:"):
         copy_image_and_label(img, "validation")
 
 
