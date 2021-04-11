@@ -13,7 +13,7 @@ from robosat.features.parking import ParkingHandler
 
 # Register post-processing handlers here; they need to support a `apply(tile, mask)` function
 # for handling one mask and a `save(path)` function for GeoJSON serialization to a file.
-handlers = {"parking": ParkingHandler}
+handlers = {"vineyard": ParkingHandler}
 
 
 def add_parser(subparser):
